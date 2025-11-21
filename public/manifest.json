@@ -1,0 +1,21 @@
+{
+    "name": "Shriprasad R Patil - Portfolio",
+    "short_name": "Shriprasad Portfolio",
+    "description": "Full-stack developer portfolio showcasing MERN Stack, Python, and modern web projects",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#667eea",
+    "icons": [
+        {
+            "src": "/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
