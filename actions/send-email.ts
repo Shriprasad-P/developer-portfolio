@@ -8,6 +8,11 @@ export async function sendEmail(formData: FormData) {
     const subject = formData.get("subject") as string
     const message = formData.get("message") as string
 
+    if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+        console.error("Missing environment variables");
+        return { success: false, error: "Server configuration error: Missing email credentials." };
+    }
+
     if (!name || !email || !subject || !message) {
         return { success: false, error: "Please fill in all fields." }
     }
@@ -49,6 +54,8 @@ export async function sendEmail(formData: FormData) {
         return { success: true }
     } catch (error) {
         console.error("Error sending email:", error)
-        return { success: false, error: "Failed to send email. Please try again later." }
+        // Return the specific error message to help with debugging
+        const errorMessage = error instanceof Error ? error.message : "Unknown error occurred"
+        return { success: false, error: errorMessage }
     }
 }
