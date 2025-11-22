@@ -17,43 +17,51 @@ export default function Projects() {
       id: 1,
       title: "E-Commerce Platform",
       description:
-        "A full-stack MERN application with user authentication, product catalog, cart functionality, and payment integration.",
+        "A modern e-commerce user interface with product catalog, shopping cart functionality, and responsive design.",
       image: "/screenshots/e-commerce.jpg",
-      tags: ["React", "Node.js", "MongoDB", "Express", "Redux"],
+      tags: ["Next.js", "React", "Tailwind CSS", "shadcn/ui"],
       demoUrl: "/projects/e-commerce",
-      githubUrl: "https://github.com/Shriprasad-P/project",
+      githubUrl: "https://github.com/Shriprasad-P/modern-ecommerce-ui",
     },
     {
       id: 2,
       title: "AI-Powered Chat Assistant",
       description:
-        "A conversational AI assistant built with LangChain and Python that can answer questions and perform tasks.",
+        "A responsive chat interface featuring simulated AI conversations, typing indicators, and a modern message layout.",
       image: "/images/ai-chat.png",
-      tags: ["Python", "LangChain", "FastAPI", "React", "TypeScript"],
+      tags: ["Next.js", "React", "Tailwind CSS", "Lucide React"],
       demoUrl: "/projects/ai-chat",
-      githubUrl: "https://github.com/Shriprasad-P/project",
+      githubUrl: "https://github.com/Shriprasad-P/ai-chat-assistant",
     },
-
-
+    {
+      id: 3,
+      title: "Algorithm Visualizer",
+      description:
+        "An interactive educational tool to visualize sorting algorithms like Bubble, Merge, and Quick sort in real-time.",
+      image: "/images/algo-viz.png",
+      tags: ["Next.js", "Framer Motion", "Algorithms", "React"],
+      demoUrl: "/projects/algorithm-visualizer",
+      githubUrl: "https://github.com/Shriprasad-P/sorting-algorithm-visualizer",
+    },
     {
       id: 4,
       title: "Task Management System",
       description:
-        "A collaborative task management application with real-time updates and team collaboration features.",
+        "A Kanban-style task management board with drag-and-drop capabilities, column organization, and priority tagging.",
       image: "/images/task-mgmt.png",
-      tags: ["Next.js", "MongoDB", "Socket.io", "Tailwind CSS"],
+      tags: ["Next.js", "React", "Tailwind CSS", "Drag & Drop"],
       demoUrl: "/projects/task-management",
-      githubUrl: "https://github.com/Shriprasad-P/project",
+      githubUrl: "https://github.com/Shriprasad-P/kanban-task-board",
     },
     {
       id: 5,
-      title: "iOS Todo App",
+      title: "iOS Style Todo App",
       description:
-        "A native iOS To-Do application built with SwiftUI featuring CoreData integration and a minimalist design.",
+        "A web-based To-Do application replicating the iOS design language with smooth animations and dynamic island.",
       image: "/images/ios-todo.png",
-      tags: ["SwiftUI", "iOS", "Swift", "CoreData"],
+      tags: ["Next.js", "Framer Motion", "Tailwind CSS", "iOS Design"],
       demoUrl: "/projects/ios-todo",
-      githubUrl: "https://github.com/Shriprasad-P/project",
+      githubUrl: "https://github.com/Shriprasad-P/ios-style-todo-app",
     },
   ]
 
