@@ -21,14 +21,14 @@ export async function sendEmail(formData: FormData) {
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_APP_PASSWORD,
+                user: process.env.GMAIL_USER?.trim(),
+                pass: process.env.GMAIL_APP_PASSWORD?.trim(),
             },
         })
 
         const mailOptions = {
-            from: process.env.GMAIL_USER, // Sender address (your Gmail)
-            to: process.env.GMAIL_USER, // Receiver address (also your Gmail)
+            from: process.env.GMAIL_USER?.trim(), // Sender address (your Gmail)
+            to: process.env.GMAIL_USER?.trim(), // Receiver address (also your Gmail)
             replyTo: email, // The user's email so you can reply to them
             subject: `Portfolio Contact: ${subject}`,
             text: `
