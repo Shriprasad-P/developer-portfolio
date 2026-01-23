@@ -1,13 +1,52 @@
 "use client"
 
-import { useState } from "react"
-import { motion } from "framer-motion"
+import { useState, useRef, useEffect } from "react"
+import gsap from "gsap"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 
 export function ContactForm() {
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const containerRef = useRef<HTMLDivElement>(null)
+    const formRef = useRef<HTMLFormElement>(null)
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo(containerRef.current,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            )
+
+            if (formRef.current) {
+                const elements = formRef.current.children
+                gsap.fromTo(elements,
+                    { opacity: 0, y: 20 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.6,
+                        stagger: 0.1,
+                        delay: 0.2,
+                        scrollTrigger: {
+                            trigger: formRef.current,
+                            start: "top 85%",
+                        }
+                    }
+                )
+            }
+        }, containerRef)
+        return () => ctx.revert()
+    }, [])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -45,10 +84,8 @@ export function ContactForm() {
 
     return (
         <section className="relative py-24 md:py-32 overflow-hidden">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
+            <div
+                ref={containerRef}
                 className="container px-4 md:px-6 mx-auto max-w-2xl"
             >
                 <div className="mb-12 text-center">
@@ -56,7 +93,7 @@ export function ContactForm() {
                     <h2 className="font-sans text-3xl md:text-5xl font-light italic">Let&apos;s Collaborate</h2>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-8">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
                     <div className="space-y-2">
                         <label htmlFor="name" className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
                             Name
@@ -92,7 +129,7 @@ export function ContactForm() {
                         {isSubmitting ? "Sending..." : "Send Message"}
                     </Button>
                 </form>
-            </motion.div>
+            </div>
         </section>
     )
 }

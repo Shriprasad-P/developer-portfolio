@@ -2,8 +2,9 @@
 
 import type React from "react"
 
-import { useState, useRef } from "react"
-import { motion, useMotionValue, useSpring } from "framer-motion"
+import { useState, useRef, useEffect } from "react"
+import gsap from "gsap"
+import { ParticleBackground } from "./three/particle-background"
 
 const projects = [
   {
@@ -33,44 +34,97 @@ const projects = [
 export function Works() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const imageRef = useRef<HTMLDivElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const projectRefs = useRef<(HTMLDivElement | null)[]>([])
 
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
+  // GSAP x/y setters for performance
+  const xTo = useRef<gsap.QuickToFunc>(null)
+  const yTo = useRef<gsap.QuickToFunc>(null)
 
-  const springX = useSpring(mouseX, { stiffness: 150, damping: 20 })
-  const springY = useSpring(mouseY, { stiffness: 150, damping: 20 })
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Setup quickTo for mouse movement
+      if (imageRef.current) {
+        xTo.current = gsap.quickTo(imageRef.current, "x", { duration: 0.1, ease: "power3" })
+        yTo.current = gsap.quickTo(imageRef.current, "y", { duration: 0.1, ease: "power3" })
+      }
+
+      // Header Animation
+      gsap.fromTo(
+        headerRef.current,
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      )
+
+      // Projects Animation
+      projectRefs.current.forEach((el, index) => {
+        if (el) {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 50 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              delay: index * 0.1,
+              scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          )
+        }
+      })
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (containerRef.current) {
+    if (containerRef.current && xTo.current && yTo.current) {
       const rect = containerRef.current.getBoundingClientRect()
-      mouseX.set(e.clientX - rect.left)
-      mouseY.set(e.clientY - rect.top)
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+      xTo.current(x)
+      yTo.current(y)
     }
   }
 
+  // Handle project hover for specific title animations if needed, 
+  // though CSS group-hover is often cleaner for simple shifts. 
+  // We'll stick to CSS for the simple shifts or use GSAP if requested.
+  // The original used Framer Motion for x: 20. We can do that with GSAP context or simple conditional, 
+  // but CSS `transition-transform hover:translate-x-4` is much more efficient for this.
+
   return (
-    <section id="works" className="relative py-32 px-8 md:px-12 md:py-24">
+    <section id="works" className="relative py-32 px-8 md:px-12 md:py-24 overflow-hidden">
+      <ParticleBackground count={150} color="#4ade80" />
       {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
+      <div
+        ref={headerRef}
         className="mb-24"
       >
         <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">04 — SELECTED WORKS</p>
         <h2 className="font-sans text-3xl md:text-5xl font-light italic">The Distortion Gallery</h2>
-      </motion.div>
+      </div>
 
       {/* Projects List */}
       <div ref={containerRef} onMouseMove={handleMouseMove} className="relative">
         {projects.map((project, index) => (
-          <motion.div
+          <div
             key={project.title}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: index * 0.1 }}
+            ref={(el: HTMLDivElement | null) => { projectRefs.current[index] = el }}
             className="relative border-t border-white/10 py-8 md:py-12"
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
@@ -88,15 +142,11 @@ export function Works() {
               </span>
 
               {/* Title */}
-              <motion.h3
-                className="font-sans text-4xl md:text-6xl lg:text-7xl font-light tracking-tight group-hover:text-white/70 transition-colors duration-300 flex-1"
-                animate={{
-                  x: hoveredIndex === index ? 20 : 0,
-                }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              <h3
+                className="font-sans text-4xl md:text-6xl lg:text-7xl font-light tracking-tight group-hover:text-white/70 transition-all duration-300 flex-1 group-hover:translate-x-5"
               >
                 {project.title}
-              </motion.h3>
+              </h3>
 
               {/* Tags */}
               <div className="flex gap-2 flex-wrap order-2 md:order-none">
@@ -110,44 +160,54 @@ export function Works() {
                 ))}
               </div>
             </a>
-          </motion.div>
+          </div>
         ))}
 
         {/* Floating Image */}
-        <motion.div
-          className="absolute pointer-events-none z-50 w-64 h-40 md:w-80 md:h-48 overflow-hidden rounded-lg"
+        <div
+          ref={imageRef}
+          className="absolute pointer-events-none z-50 w-64 h-40 md:w-80 md:h-48 overflow-hidden rounded-lg top-0 left-0"
           style={{
-            x: springX,
-            y: springY,
-            translateX: "-50%",
-            translateY: "-320%",
+            opacity: 0, // start hidden
+            transform: 'translate(-50%, -50%)' // center on cursor
           }}
-          animate={{
-            opacity: hoveredIndex !== null ? 1 : 0,
-            scale: hoveredIndex !== null ? 1 : 0.8,
-          }}
-          transition={{ duration: 0.2 }}
         >
-          {hoveredIndex !== null && (
-            <motion.img
-              src={projects[hoveredIndex].image}
-              alt={projects[hoveredIndex].title}
-              className="w-full h-full object-cover"
-              initial={{ scale: 1.2 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.4 }}
+          {/* We flip visibility via GSAP in the updated useEffect below or simply conditional rendering + gsap animation */}
+          {projects.map((project, index) => (
+            <img
+              key={project.title}
+              src={project.image}
+              alt={project.title}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${hoveredIndex === index ? 'opacity-100' : 'opacity-0'}`}
               style={{
                 filter: "grayscale(50%) contrast(1.1)",
               }}
             />
-          )}
+          ))}
           {/* Glitch overlay */}
           <div className="absolute inset-0 bg-[#2563eb]/10 mix-blend-overlay" />
-        </motion.div>
+        </div>
       </div>
+
+      {/* GSAP effect to show/hide the floating container container based on hover */}
+      {/* We can use a small effect to animate scale/opacity of the containerRef */}
+      <FloatingImageController hoveredIndex={hoveredIndex} imageRef={imageRef} />
 
       {/* Bottom Border */}
       <div className="border-t border-white/10" />
     </section>
   )
+}
+
+function FloatingImageController({ hoveredIndex, imageRef }: { hoveredIndex: number | null, imageRef: React.RefObject<HTMLDivElement | null> }) {
+  useEffect(() => {
+    if (imageRef.current) {
+      if (hoveredIndex !== null) {
+        gsap.to(imageRef.current, { opacity: 1, scale: 1, duration: 0.3 })
+      } else {
+        gsap.to(imageRef.current, { opacity: 0, scale: 0.8, duration: 0.3 })
+      }
+    }
+  }, [hoveredIndex])
+  return null
 }

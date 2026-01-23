@@ -1,7 +1,8 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useEffect } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
+import gsap from "gsap"
 import { SentientSphere } from "./sentient-sphere"
 
 export function Hero() {
@@ -14,6 +15,18 @@ export function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
   const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8])
 
+  const titleRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (titleRef.current) {
+      gsap.fromTo(
+        titleRef.current,
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 1, delay: 0.2, ease: "power3.out" }
+      )
+    }
+  }, [])
+
   return (
     <section ref={containerRef} className="relative h-screen w-full overflow-hidden bg-[#050505]">
       {/* 3D Sphere Background */}
@@ -24,18 +37,14 @@ export function Hero() {
       {/* Typography Overlay */}
       <motion.div style={{ opacity, scale }} className="relative z-10 h-full flex flex-col justify-between p-8 md:p-12 md:px-12 md:py-20">
         {/* Top Left */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
+        <div ref={titleRef}>
           <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-2">01 — DISCIPLINE</p>
           <h2 className="font-sans text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-balance">
             Shriprasad
             <br />
             <span className="italic">Patil</span>
           </h2>
-        </motion.div>
+        </div>
 
 
 
