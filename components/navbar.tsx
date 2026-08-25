@@ -3,11 +3,14 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useRouter, usePathname } from "next/navigation"
+import { profile } from "@/lib/portfolio-data"
 
 const navLinks = [
+  { label: "Work", href: "#work" },
+  { label: "Open Source", href: "#open-source" },
+  { label: "Research", href: "#research" },
+  { label: "Certifications", href: "#certifications" },
   { label: "About", href: "#about" },
-  { label: "Works", href: "#works" },
-  { label: "Contact", href: "/contact" },
 ]
 
 export function Navbar() {
@@ -64,7 +67,7 @@ export function Navbar() {
           </a>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-8">
+          <ul className="hidden lg:flex items-center gap-5 xl:gap-7">
             {navLinks.map((link, index) => (
               <li key={link.label}>
                 <button
@@ -80,18 +83,12 @@ export function Navbar() {
           </ul>
 
           {/* Status Indicator */}
-          <div className="hidden md:flex items-center gap-3">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
-            </span>
-            <span className="font-mono text-xs tracking-wider text-muted-foreground">AVAILABLE FOR WORK</span>
-          </div>
+          <a href={profile.resumeRequest} className="hidden md:inline-flex font-mono text-xs tracking-wider text-foreground underline decoration-white/30 underline-offset-4 hover:decoration-white">RESUME</a>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden relative w-8 h-8 flex flex-col items-center justify-center gap-1.5"
+            className="lg:hidden relative w-8 h-8 flex flex-col items-center justify-center gap-1.5"
             aria-label="Toggle menu"
           >
             <motion.span
@@ -118,7 +115,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-lg md:hidden"
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-lg lg:hidden"
           >
             <nav className="flex flex-col items-center justify-center h-full gap-8">
               {navLinks.map((link, index) => (
@@ -135,18 +132,14 @@ export function Navbar() {
                   {link.label}
                 </motion.button>
               ))}
-              <motion.div
+              <motion.a href={profile.resumeRequest}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
-                className="flex items-center gap-3 mt-8"
+                className="mt-8 font-mono text-xs tracking-wider text-muted-foreground underline underline-offset-4"
               >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
-                </span>
-                <span className="font-mono text-xs tracking-wider text-muted-foreground">AVAILABLE FOR WORK</span>
-              </motion.div>
+                REQUEST RESUME
+              </motion.a>
             </nav>
           </motion.div>
         )}

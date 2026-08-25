@@ -1,12 +1,13 @@
 import { Navbar } from "@/components/navbar"
 import { Hero } from "@/components/hero"
 import { About } from "@/components/about"
-import { Works } from "@/components/works"
 import { TechMarquee } from "@/components/tech-marquee"
 import { Footer } from "@/components/footer"
 import { CustomCursor } from "@/components/custom-cursor"
 import { SmoothScroll } from "@/components/smooth-scroll"
 import { SectionBlend } from "@/components/section-blend"
+import { FeaturedWork } from "@/components/featured-work"
+import { Certifications, OpenSource, Research } from "@/components/evidence-sections"
 
 export default function Home() {
   return (
@@ -16,8 +17,11 @@ export default function Home() {
       <main>
         <Hero />
         <SectionBlend />
+        <FeaturedWork />
+        <OpenSource />
+        <Research />
+        <Certifications />
         <About />
-        <Works />
         <TechMarquee />
         <Footer />
       </main>

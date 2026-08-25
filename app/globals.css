@@ -158,6 +158,151 @@
   color: var(--accent-foreground);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+:focus-visible {
+  outline: 2px solid #86a8ff;
+  outline-offset: 4px;
+}
+
+.section-kicker {
+  margin-bottom: 1rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.section-title {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  font-weight: 300;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+.content-section {
+  margin-inline: auto;
+  max-width: 90rem;
+  padding: 6rem 1.5rem;
+}
+
+.section-intro {
+  margin-bottom: 3.5rem;
+}
+
+.hero-action,
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  padding: 0.72rem 0.9rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background-color 220ms ease, color 220ms ease, border-color 220ms ease;
+}
+
+.hero-action {
+  background: #f7f7f5;
+  color: #0a0a0a;
+}
+
+.hero-action:hover,
+.project-link:hover {
+  border-color: #fff;
+  background: #fff;
+  color: #0a0a0a;
+}
+
+.hero-action-secondary {
+  background: rgba(5, 5, 5, 0.35);
+  color: #f7f7f5;
+}
+
+.social-icon {
+  display: inline-grid;
+  height: 2.3rem;
+  width: 2.3rem;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.78);
+  transition: color 200ms ease, background-color 200ms ease;
+}
+
+.social-icon:hover {
+  background: #fff;
+  color: #050505;
+}
+
+.project-card {
+  transition: border-color 280ms ease, background-color 280ms ease;
+}
+
+.project-card:hover {
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.tech-chip,
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+  padding: 0.35rem 0.62rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.64rem;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.64);
+}
+
+.status-chip {
+  border-color: rgba(134, 168, 255, 0.48);
+  color: #b9caff;
+  text-transform: uppercase;
+}
+
+.case-study summary::marker {
+  color: #86a8ff;
+}
+
+.case-study-body h4 {
+  margin-bottom: 0.4rem;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.evidence-card,
+.credential-card {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.024);
+  padding: 1.5rem;
+}
+
+.evidence-mark {
+  display: grid;
+  height: 3.1rem;
+  width: 3.1rem;
+  place-items: center;
+  border: 1px solid rgba(134, 168, 255, 0.5);
+  color: #aebfff;
+}
+
+.evidence-card code {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.78em;
+  color: #c7d3ff;
+}
+
 /* Marquee animation */
 @keyframes marquee-left {
   from {
@@ -183,4 +328,30 @@
 
 .animate-marquee-right {
   animation: marquee-right 50s linear infinite;
+}
+
+@media (min-width: 768px) {
+  .content-section {
+    padding: 8rem 3rem;
+  }
+
+  .evidence-card,
+  .credential-card {
+    padding: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

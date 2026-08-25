@@ -3,7 +3,9 @@
 import { useRef, useEffect } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import gsap from "gsap"
+import { ArrowDownRight, ArrowUpRight, Github, Linkedin, Mail } from "lucide-react"
 import { SentientSphere } from "./sentient-sphere"
+import { profile } from "@/lib/portfolio-data"
 
 export function Hero() {
   const containerRef = useRef<HTMLElement>(null)
@@ -28,22 +30,23 @@ export function Hero() {
   }, [])
 
   return (
-    <section ref={containerRef} className="relative h-screen w-full overflow-hidden bg-[#050505]">
+    <section ref={containerRef} className="relative min-h-[760px] h-screen w-full overflow-hidden bg-[#050505]">
       {/* 3D Sphere Background */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-35">
         <SentientSphere />
       </div>
+      <div className="absolute inset-0 z-[1] bg-black/20 pointer-events-none" />
 
       {/* Typography Overlay */}
-      <motion.div style={{ opacity, scale }} className="relative z-10 h-full flex flex-col justify-between p-8 md:p-12 md:px-12 md:py-20">
+      <motion.div style={{ opacity, scale }} className="relative z-10 flex min-h-[760px] h-full flex-col justify-between p-6 pt-28 sm:p-8 sm:pt-32 md:px-12 md:py-20">
         {/* Top Left */}
-        <div ref={titleRef}>
-          <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-2">01 — DISCIPLINE</p>
-          <h2 className="font-sans text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-balance">
+        <div ref={titleRef} className="drop-shadow-[0_2px_18px_rgba(0,0,0,0.9)]">
+          <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-2">01 — SHRIPRASAD PATIL</p>
+          <h1 className="font-sans text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-balance">
             Shriprasad
             <br />
             <span className="italic">Patil</span>
-          </h2>
+          </h1>
         </div>
 
 
@@ -53,14 +56,29 @@ export function Hero() {
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="self-end text-right"
+          className="w-full max-w-[40rem] self-end text-right drop-shadow-[0_2px_18px_rgba(0,0,0,0.9)]"
         >
-          <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-2">02 — CRAFT</p>
-          <h2 className="font-sans text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-balance">
-            Full Stack
+          <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-3">02 — PRACTICE</p>
+          <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-balance">
+            AI-Native
             <br />
-            <span className="italic">Developer</span>
+            <span className="italic">Software Engineer</span>
           </h2>
+          <p className="mt-5 max-w-md font-mono text-xs leading-6 text-white/65 sm:text-sm">
+            I build agentic systems, AI-powered products, research tools, and production-grade developer infrastructure.
+          </p>
+          <p className="mt-3 max-w-lg font-mono text-[11px] leading-5 text-white/40">
+            LLM agents · retrieval systems · computer vision · FastAPI · Next.js · full-stack AI engineering
+          </p>
+          <div className="mt-7 flex flex-wrap justify-end gap-3">
+            <a href="#work" className="hero-action">View work <ArrowDownRight size={16} aria-hidden="true" /></a>
+            <a href={profile.resumeRequest} className="hero-action hero-action-secondary">Request resume <ArrowUpRight size={16} aria-hidden="true" /></a>
+          </div>
+          <div className="mt-5 flex justify-end gap-3">
+            <a href={profile.github} target="_blank" rel="noreferrer" className="social-icon" aria-label="GitHub"><Github size={17} /></a>
+            <a href={profile.linkedin} target="_blank" rel="noreferrer" className="social-icon" aria-label="LinkedIn"><Linkedin size={17} /></a>
+            <a href={`mailto:${profile.email}`} className="social-icon" aria-label="Email Shriprasad Patil"><Mail size={17} /></a>
+          </div>
         </motion.div>
       </motion.div>
 

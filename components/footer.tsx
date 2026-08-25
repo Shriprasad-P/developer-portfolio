@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
+import { profile } from "@/lib/portfolio-data"
 
 export function Footer() {
   const [time, setTime] = useState("")
@@ -27,7 +28,7 @@ export function Footer() {
     <footer className="relative">
       {/* Main CTA */}
       <motion.a
-        href="/contact"
+        href={`mailto:${profile.email}`}
         data-cursor-hover
         className="relative block overflow-hidden"
         onMouseEnter={() => setIsHovered(true)}
@@ -79,14 +80,14 @@ export function Footer() {
           {/* Links */}
           <div className="flex gap-8">
             <a
-              href="mailto:shriprasadpatil8@gmail.com"
+              href={`mailto:${profile.email}`}
               data-cursor-hover
               className="font-mono text-xs tracking-widest text-muted-foreground hover:text-white transition-colors duration-300"
             >
               Email
             </a>
             <a
-              href="https://www.linkedin.com/in/shriprasadpatil2001"
+              href={profile.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               data-cursor-hover
@@ -95,7 +96,7 @@ export function Footer() {
               LinkedIn
             </a>
             <a
-              href="https://github.com/Shriprasad-P"
+              href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
               data-cursor-hover
@@ -103,10 +104,11 @@ export function Footer() {
             >
               GitHub
             </a>
+            <a href={profile.resumeRequest} className="font-mono text-xs tracking-widest text-muted-foreground hover:text-white transition-colors duration-300">Resume</a>
           </div>
 
           {/* Copyright */}
-          <p className="font-mono text-xs tracking-widest text-muted-foreground">© {new Date().getFullYear()}</p>
+          <p className="font-mono text-xs tracking-widest text-muted-foreground">© {new Date().getFullYear()} Shriprasad Patil</p>
         </div>
       </div>
     </footer>

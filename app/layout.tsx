@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import { Playfair_Display, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { GSAPRegistry } from "@/components/gsap-registry"
+import { profile, projects } from "@/lib/portfolio-data"
 import "./globals.css"
 
 const playfair = Playfair_Display({
@@ -16,9 +17,24 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "AI-Native Product Builder | Portfolio",
-  description: "System Architect & Interface Designer crafting intelligent digital experiences",
-  generator: 'v0.app'
+  metadataBase: new URL("https://shriprasadpatil.dev"),
+  title: "Shriprasad Patil — AI-Native Software Engineer",
+  description: "AI-native software engineer building agentic systems, research tools, full-stack AI products, and developer infrastructure. Explore projects, research, open-source work, and certifications.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    title: "Shriprasad Patil — AI-Native Software Engineer",
+    description: "AI-native software engineer building agentic systems, research tools, full-stack AI products, and developer infrastructure.",
+    images: [{ url: "/abstract-neural-network-visualization-dark-theme.jpg", width: 1024, height: 1024, alt: "Abstract neural network visualization" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Shriprasad Patil — AI-Native Software Engineer",
+    description: "Agentic systems, research tools, AI products, and developer infrastructure.",
+    images: ["/abstract-neural-network-visualization-dark-theme.jpg"],
+  },
+  icons: { icon: "/icon.svg", apple: "/apple-icon.png" },
 }
 
 export const viewport: Viewport = {
@@ -30,6 +46,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "Person", name: "Shriprasad Patil", url: "https://shriprasadpatil.dev", email: profile.email, sameAs: [profile.github, profile.linkedin], jobTitle: "AI-Native Software Engineer" },
+      { "@type": "WebSite", name: "Shriprasad Patil", url: "https://shriprasadpatil.dev" },
+      ...projects.map((project) => ({ "@type": "SoftwareSourceCode", name: project.title, description: project.description, codeRepository: project.github })),
+      { "@type": "EducationalOccupationalCredential", name: "Microsoft Certified: Azure AI Fundamentals", credentialCategory: "AI-900", recognizedBy: { "@type": "Organization", name: "Microsoft" }, dateCreated: "2026-02-14", identifier: "c3DQ-uScT" },
+    ],
+  }
+
   return (
     <html lang="en" className={`${playfair.variable} ${geistMono.variable}`}>
       <body className="font-sans antialiased overflow-x-hidden">
@@ -37,6 +63,7 @@ export default function RootLayout({
         <GSAPRegistry />
         {children}
         <Analytics />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </body>
     </html>
   )

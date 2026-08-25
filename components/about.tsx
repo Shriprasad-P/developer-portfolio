@@ -5,11 +5,10 @@ import gsap from "gsap"
 import { FloatingShapes } from "./three/floating-shapes"
 
 const statements = [
-  "I build products that think alongside humans.",
-  "Design systems that adapt and evolve.",
-  "Interfaces should feel inevitable.",
-  "Every interaction is a conversation.",
-  "Code is just crystallized thought.",
+  "Grounded AI systems.",
+  "Useful developer infrastructure.",
+  "Research tools with evidence.",
+  "Interfaces that respect attention.",
 ]
 
 export function About() {
@@ -96,8 +95,8 @@ export function About() {
         ref={headerRef}
         className="px-8 md:px-12 mb-0 py-20"
       >
-        <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">03 — PHILOSOPHY</p>
-        <h2 className="font-sans text-3xl md:text-5xl font-light italic">Stream of Consciousness</h2>
+        <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">06 — BIOGRAPHY</p>
+        <h2 className="font-sans text-3xl md:text-5xl font-light italic">Built with care for the <span className="not-italic">real world.</span></h2>
       </div>
 
       {/* Horizontal Scroll Container */}
@@ -129,25 +128,16 @@ export function About() {
         ref={bioRef}
         className="px-8 md:px-12 py-20 max-w-4xl"
       >
-        <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-8">04 — BIOGRAPHY</p>
-        <div className="space-y-6 font-sans text-lg md:text-xl text-muted-foreground font-light leading-relaxed">
-          <p>
-            I’m a passionate developer focused on building smart, scalable, and meaningful digital experiences. With
-            experience across full-stack development and emerging technologies like AI/ML, I bridge creativity with
-            engineering to turn ideas into working, impactful solutions.
-          </p>
-          <p>
-            My work spans across frontend, backend, cloud technologies, and intelligent systems. I enjoy solving
-            real-world problems through automation, data-driven decision-making, and intuitive user experiences.
-          </p>
-          <p>
-            Whether it&apos;s developing applications using the MERN stack, building intelligent AI-powered tools, or
-            exploring microservices and modern software architectures, I believe technology should be accessible,
-            efficient, and built for the future.
-          </p>
-          <p>
-            I’m continuously learning, experimenting, and pushing boundaries—because for me, development isn’t just a
-            job, it’s a craft.
+          <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-8">ABOUT</p>
+          <div className="space-y-6 font-sans text-lg md:text-xl text-muted-foreground font-light leading-relaxed">
+            <p>
+            I&apos;m an MCA student and AI-focused software engineer building agentic systems, research tools, and full-stack products.
+            My work spans LLM agents, retrieval systems, FastAPI/Next.js applications, computer vision, developer infrastructure,
+            and applied AI research.
+            </p>
+            <p>
+            I care about systems that are verifiable, secure, and useful beyond a demo—whether that means preserving evidence,
+            constraining an autonomous workflow, or making information easier to access.
           </p>
         </div>
       </div>

@@ -1,25 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-
-const techItems = [
-  "PYTHON",
-  "REACT",
-  "JAVASCRIPT",
-  "JAVA",
-  "PYTORCH",
-  "TENSORFLOW",
-  "OPENCV",
-]
-
-const concepts = [
-  "DATA STRUCTURE",
-  "GIT",
-  "DOCKER",
-  "DYNAMIC PROGRAMMING",
-  "RESTAPI",
-  "TYPESCRIPT",
-]
+import { technicalStack } from "@/lib/portfolio-data"
 
 function MarqueeRow({ items, direction = "left" }: { items: string[]; direction?: "left" | "right" }) {
   const duplicatedItems = [...items, ...items, ...items, ...items]
@@ -41,11 +23,11 @@ function MarqueeRow({ items, direction = "left" }: { items: string[]; direction?
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.color = "white"
-              e.currentTarget.style.WebkitTextStroke = "none"
+              e.currentTarget.style.webkitTextStroke = "none"
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.color = "transparent"
-              e.currentTarget.style.WebkitTextStroke = "1px rgba(255,255,255,0.3)"
+              e.currentTarget.style.webkitTextStroke = "1px rgba(255,255,255,0.3)"
             }}
           >
             {item}
@@ -59,7 +41,7 @@ function MarqueeRow({ items, direction = "left" }: { items: string[]; direction?
 
 export function TechMarquee() {
   return (
-    <section className="relative py-24 overflow-hidden md:py-32">
+    <section aria-labelledby="stack-title" className="relative border-t border-white/10 py-24 overflow-hidden md:py-32">
       {/* Section Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -68,13 +50,17 @@ export function TechMarquee() {
         transition={{ duration: 0.8 }}
         className="px-8 md:px-12 mb-16"
       >
-        <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">05 — TECHNICAL ARSENAL</p>
+        <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">07 — TECHNICAL STACK</p>
+        <h2 id="stack-title" className="section-title">Tools, applied with <em>intent.</em></h2>
       </motion.div>
 
-      {/* Marquee Rows */}
-      <div className="space-y-4">
-        <MarqueeRow items={techItems} direction="left" />
-        <MarqueeRow items={concepts} direction="right" />
+      <div className="space-y-12">
+        {technicalStack.map((group, index) => (
+          <div key={group.label}>
+            <p className="px-8 pb-3 font-mono text-[11px] tracking-[0.22em] text-[#86a8ff] md:px-12">{group.label.toUpperCase()}</p>
+            <MarqueeRow items={group.items.map((item) => item.toUpperCase())} direction={index % 2 === 0 ? "left" : "right"} />
+          </div>
+        ))}
       </div>
     </section>
   )
