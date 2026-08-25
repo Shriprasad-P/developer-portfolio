@@ -49,10 +49,11 @@ export default function RootLayout({
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "Person", name: "Shriprasad Patil", url: "https://shriprasadpatil.dev", email: profile.email, sameAs: [profile.github, profile.linkedin], jobTitle: "AI-Native Software Engineer" },
+      { "@type": "Person", name: "Shriprasad Patil", url: "https://shriprasadpatil.dev", email: profile.email, sameAs: [profile.github, profile.linkedin, profile.huggingFace], jobTitle: "AI-Native Software Engineer" },
       { "@type": "WebSite", name: "Shriprasad Patil", url: "https://shriprasadpatil.dev" },
       ...projects.map((project) => ({ "@type": "SoftwareSourceCode", name: project.title, description: project.description, codeRepository: project.github })),
       { "@type": "EducationalOccupationalCredential", name: "Microsoft Certified: Azure AI Fundamentals", credentialCategory: "AI-900", recognizedBy: { "@type": "Organization", name: "Microsoft" }, dateCreated: "2026-02-14", identifier: "c3DQ-uScT" },
+      { "@type": "CreativeWork", name: "MCP 1st Birthday Hackathon — Contributor", url: profile.huggingFace, contributor: { "@type": "Person", name: "Shriprasad Patil" } },
     ],
   }
 

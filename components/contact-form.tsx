@@ -57,6 +57,7 @@ export function ContactForm() {
             name: formData.get("name"),
             email: formData.get("email"),
             message: formData.get("message"),
+            website: formData.get("website"),
         }
 
         try {
@@ -74,8 +75,7 @@ export function ContactForm() {
             } else {
                 alert("Failed to send message. Please try again.")
             }
-        } catch (error) {
-            console.error("Error:", error)
+        } catch {
             alert("An error occurred. Please try again.")
         } finally {
             setIsSubmitting(false)
@@ -94,6 +94,10 @@ export function ContactForm() {
                 </div>
 
                 <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
+                    <div className="absolute left-[-10000px] h-px w-px overflow-hidden" aria-hidden="true">
+                        <label htmlFor="website">Website</label>
+                        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+                    </div>
                     <div className="space-y-2">
                         <label htmlFor="name" className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
                             Name

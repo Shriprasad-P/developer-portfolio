@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useMemo, useEffect, useState } from "react"
+import { useRef, useMemo, useSyncExternalStore } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { MathUtils } from "three"
 import type { Mesh, ShaderMaterial } from "three"
@@ -130,11 +130,11 @@ function Sphere() {
 }
 
 export function SentientSphere() {
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const mounted = useSyncExternalStore(
+    () => () => undefined,
+    () => true,
+    () => false,
+  )
 
   if (!mounted) {
     return (

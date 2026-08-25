@@ -8,6 +8,7 @@ import { SmoothScroll } from "@/components/smooth-scroll"
 import { SectionBlend } from "@/components/section-blend"
 import { FeaturedWork } from "@/components/featured-work"
 import { Certifications, OpenSource, Research } from "@/components/evidence-sections"
+import { AILabs } from "@/components/ai-labs"
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <Hero />
         <SectionBlend />
         <FeaturedWork />
+        <AILabs />
         <OpenSource />
         <Research />
         <Certifications />

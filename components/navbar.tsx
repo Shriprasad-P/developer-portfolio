@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useRouter, usePathname } from "next/navigation"
-import { profile } from "@/lib/portfolio-data"
 
 const navLinks = [
   { label: "Work", href: "#work" },
@@ -83,7 +82,7 @@ export function Navbar() {
           </ul>
 
           {/* Status Indicator */}
-          <a href={profile.resumeRequest} className="hidden md:inline-flex font-mono text-xs tracking-wider text-foreground underline decoration-white/30 underline-offset-4 hover:decoration-white">RESUME</a>
+          <span className="hidden md:inline-flex font-mono text-xs tracking-wider text-white/45" title="A current resume PDF has not been added yet">RESUME / PENDING</span>
 
           {/* Mobile Menu Button */}
           <button
@@ -132,14 +131,14 @@ export function Navbar() {
                   {link.label}
                 </motion.button>
               ))}
-              <motion.a href={profile.resumeRequest}
+              <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}
                 className="mt-8 font-mono text-xs tracking-wider text-muted-foreground underline underline-offset-4"
               >
-                REQUEST RESUME
-              </motion.a>
+                RESUME PDF PENDING
+              </motion.span>
             </nav>
           </motion.div>
         )}

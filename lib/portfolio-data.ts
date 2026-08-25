@@ -16,16 +16,26 @@ export type Project = {
 export type Certification = {
   title: string
   issuer: string
-  issuedAt: string
-  credentialId: string
+  issuedAt?: string
+  credentialId?: string
+  recognition?: string
+  verificationUrl?: string
   skills: string[]
+}
+
+export type Contribution = {
+  ecosystem: string
+  pullRequest: string
+  title?: string
+  status: "Merged" | "Open" | "Closed — Not Merged" | "Merged collaborative contribution"
+  url: string
 }
 
 export const profile = {
   email: "shriprasadpatil8@gmail.com",
   github: "https://github.com/Shriprasad-P",
   linkedin: "https://www.linkedin.com/in/shriprasadpatil2001",
-  resumeRequest: "mailto:shriprasadpatil8@gmail.com?subject=Resume%20request",
+  huggingFace: "https://huggingface.co/Shriprasad-P",
 }
 
 export const projects: Project[] = [
@@ -99,6 +109,44 @@ export const projects: Project[] = [
   },
 ]
 
+export const mergedContributions: Contribution[] = [
+  { ecosystem: "pytest", pullRequest: "PR #14845", title: "docs: endorse pytest-skip-slow plugin", status: "Merged", url: "https://github.com/pytest-dev/pytest/pull/14845" },
+  { ecosystem: "Hiero Analytics", pullRequest: "PR #351", title: "feat: add fail-fast option to full pipeline run", status: "Merged", url: "https://github.com/hiero-hackers/analytics/pull/351" },
+  { ecosystem: "CAMEL-AI", pullRequest: "PR #4265", title: "fix(mcp): preserve multiple tool result content blocks", status: "Merged", url: "https://github.com/camel-ai/camel/pull/4265" },
+  { ecosystem: "Judgment Pack", pullRequest: "PR #38", title: "test: cover JSON Pointer escaping", status: "Merged", url: "https://github.com/Judgment-Pack/judgment-pack-spec/pull/38" },
+]
+
+export const activeContributions: Contribution[] = [
+  { ecosystem: "n8n", pullRequest: "PR #35544", status: "Open", url: "https://github.com/n8n-io/n8n/pull/35544" },
+  { ecosystem: "Poetry", pullRequest: "PR #11007", status: "Open", url: "https://github.com/python-poetry/poetry/pull/11007" },
+  { ecosystem: "Smart Search VLM", pullRequest: "PR #3", status: "Open", url: "https://github.com/githubbermoon/smart-search-vlm/pull/3" },
+  { ecosystem: "OpenTelemetry Python Contrib", pullRequest: "PR #4928", title: "Fix Botocore test compatibility with newer aiohttp", status: "Open", url: "https://github.com/open-telemetry/opentelemetry-python-contrib/pull/4928" },
+]
+
+export const collaborativeContribution: Contribution = {
+  ecosystem: "Octo",
+  pullRequest: "PR #1",
+  title: "Add EO pipeline, Hugging Face app, and MLOps infrastructure",
+  status: "Merged collaborative contribution",
+  url: "https://github.com/githubbermoon/octo/pull/1",
+}
+
+export const priorContribution: Contribution = {
+  ecosystem: "FastAPI",
+  pullRequest: "PR #16147",
+  title: "Proposed a regression-tested fix for ServerSentEvent response-model include/exclude behavior.",
+  status: "Closed — Not Merged",
+  url: "https://github.com/fastapi/fastapi/pull/16147",
+}
+
+export const aiLab = {
+  title: "Feedback-Driven Image Pipeline",
+  description: "A local feedback-driven image-generation experiment that enhances prompts, generates images, scores outputs with a vision critic, and performs a repair pass.",
+  architecture: ["User prompt", "Qwen3-4B enhancement", "Bonsai 4B generation", "Vision critic", "Qwen3-4B repair"],
+  technologies: ["Ollama", "Qwen3", "Hugging Face MLX", "Streamlit", "Local inference"],
+  github: "https://github.com/Shriprasad-P/FeedbackDrivenImagePipeline",
+}
+
 export const certifications: Certification[] = [
   {
     title: "Microsoft Certified: Azure AI Fundamentals",
@@ -106,6 +154,13 @@ export const certifications: Certification[] = [
     issuedAt: "February 14, 2026",
     credentialId: "c3DQ-uScT",
     skills: ["Azure AI", "Machine Learning", "Computer Vision", "NLP", "Generative AI Fundamentals"],
+  },
+  {
+    title: "MCP 1st Birthday Hackathon — Contributor",
+    issuer: "Hugging Face / MCP-1st-Birthday",
+    recognition: "Contributor recognition",
+    verificationUrl: "https://huggingface.co/Shriprasad-P",
+    skills: ["Model Context Protocol", "Hugging Face Spaces", "MLOps", "Open Source"],
   },
 ]
 

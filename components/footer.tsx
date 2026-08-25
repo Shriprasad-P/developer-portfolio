@@ -15,12 +15,11 @@ export function Footer() {
       const hours = now.getHours().toString().padStart(2, "0")
       const minutes = now.getMinutes().toString().padStart(2, "0")
       const seconds = now.getSeconds().toString().padStart(2, "0")
-      const milliseconds = now.getMilliseconds().toString().padStart(3, "0")
-      setTime(`${hours}:${minutes}:${seconds}.${milliseconds}`)
+      setTime(`${hours}:${minutes}:${seconds}`)
     }
 
     updateTime()
-    const interval = setInterval(updateTime, 10)
+    const interval = setInterval(updateTime, 1000)
     return () => clearInterval(interval)
   }, [])
 
@@ -52,7 +51,7 @@ export function Footer() {
               }}
               transition={{ duration: 0.3 }}
             >
-              Let's <span className="italic">Collaborate</span>
+              Let&apos;s <span className="italic">Collaborate</span>
             </motion.h2>
 
             <motion.div
@@ -78,7 +77,7 @@ export function Footer() {
           </div>
 
           {/* Links */}
-          <div className="flex gap-8">
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 md:gap-x-8">
             <a
               href={`mailto:${profile.email}`}
               data-cursor-hover
@@ -104,7 +103,8 @@ export function Footer() {
             >
               GitHub
             </a>
-            <a href={profile.resumeRequest} className="font-mono text-xs tracking-widest text-muted-foreground hover:text-white transition-colors duration-300">Resume</a>
+            <a href={profile.huggingFace} target="_blank" rel="noreferrer" className="font-mono text-xs tracking-widest text-muted-foreground hover:text-white transition-colors duration-300">Hugging Face</a>
+            <span className="font-mono text-xs tracking-widest text-muted-foreground/50" title="Resume PDF is not yet available">Resume PDF pending</span>
           </div>
 
           {/* Copyright */}

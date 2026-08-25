@@ -3,7 +3,7 @@
 import { useRef, useEffect } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import gsap from "gsap"
-import { ArrowDownRight, ArrowUpRight, Github, Linkedin, Mail } from "lucide-react"
+import { ArrowDownRight, Github, Linkedin, Mail } from "lucide-react"
 import { SentientSphere } from "./sentient-sphere"
 import { profile } from "@/lib/portfolio-data"
 
@@ -72,11 +72,12 @@ export function Hero() {
           </p>
           <div className="mt-7 flex flex-wrap justify-end gap-3">
             <a href="#work" className="hero-action">View work <ArrowDownRight size={16} aria-hidden="true" /></a>
-            <a href={profile.resumeRequest} className="hero-action hero-action-secondary">Request resume <ArrowUpRight size={16} aria-hidden="true" /></a>
+            <span className="hero-action hero-action-secondary cursor-not-allowed opacity-65" title="A current resume PDF has not been added yet">Resume PDF pending</span>
           </div>
           <div className="mt-5 flex justify-end gap-3">
             <a href={profile.github} target="_blank" rel="noreferrer" className="social-icon" aria-label="GitHub"><Github size={17} /></a>
             <a href={profile.linkedin} target="_blank" rel="noreferrer" className="social-icon" aria-label="LinkedIn"><Linkedin size={17} /></a>
+            <a href={profile.huggingFace} target="_blank" rel="noreferrer" className="social-icon" aria-label="Hugging Face">HF</a>
             <a href={`mailto:${profile.email}`} className="social-icon" aria-label="Email Shriprasad Patil"><Mail size={17} /></a>
           </div>
         </motion.div>
