@@ -116,7 +116,7 @@ function Sphere() {
 
   return (
     <mesh ref={meshRef}>
-      <icosahedronGeometry args={[1.8, 64]} />
+      <icosahedronGeometry args={[1.8, 32]} />
       <shaderMaterial
         ref={materialRef}
         vertexShader={vertexShader}
@@ -148,7 +148,7 @@ export function SentientSphere() {
     <Canvas
       camera={{ position: [0, 0, 5], fov: 45 }}
       className="w-full my-0 h-full py-0"
-      dpr={[1, 2]}
+      dpr={[1, 1.5]}
       gl={{
         antialias: true,
         alpha: true,

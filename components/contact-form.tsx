@@ -83,7 +83,7 @@ export function ContactForm() {
     }
 
     return (
-        <section className="relative py-24 md:py-32 overflow-hidden">
+        <section id="contact" className="relative py-24 md:py-32 overflow-hidden scroll-mt-20">
             <div
                 ref={containerRef}
                 className="container px-4 md:px-6 mx-auto max-w-2xl"
@@ -91,6 +91,7 @@ export function ContactForm() {
                 <div className="mb-12 text-center">
                     <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">06 — CONTACT</p>
                     <h2 className="font-sans text-3xl md:text-5xl font-light italic">Let&apos;s Collaborate</h2>
+                    <p className="mt-5 font-mono text-xs leading-6 text-muted-foreground">Use the form below to start a conversation.</p>
                 </div>
 
                 <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">

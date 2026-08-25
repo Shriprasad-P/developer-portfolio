@@ -1,8 +1,12 @@
 "use client"
 
 import { useRef, useEffect } from "react"
+import dynamic from "next/dynamic"
 import gsap from "gsap"
-import { FloatingShapes } from "./three/floating-shapes"
+
+const FloatingShapes = dynamic(() => import("./three/floating-shapes").then((module) => module.FloatingShapes), {
+  ssr: false,
+})
 
 const statements = [
   "Grounded AI systems.",

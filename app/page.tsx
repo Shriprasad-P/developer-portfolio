@@ -9,6 +9,7 @@ import { SectionBlend } from "@/components/section-blend"
 import { FeaturedWork } from "@/components/featured-work"
 import { Certifications, OpenSource, Research } from "@/components/evidence-sections"
 import { AILabs } from "@/components/ai-labs"
+import { ContactForm } from "@/components/contact-form"
 
 export default function Home() {
   return (
@@ -25,6 +26,7 @@ export default function Home() {
         <Certifications />
         <About />
         <TechMarquee />
+        <ContactForm />
         <Footer />
       </main>
     </SmoothScroll>

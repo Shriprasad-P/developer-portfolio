@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
+import Link from "next/link"
 import { profile } from "@/lib/portfolio-data"
 
 export function Footer() {
@@ -27,7 +28,7 @@ export function Footer() {
     <footer className="relative">
       {/* Main CTA */}
       <motion.a
-        href={`mailto:${profile.email}`}
+        href="/#contact"
         data-cursor-hover
         className="relative block overflow-hidden"
         onMouseEnter={() => setIsHovered(true)}
@@ -78,13 +79,13 @@ export function Footer() {
 
           {/* Links */}
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 md:gap-x-8">
-            <a
-              href={`mailto:${profile.email}`}
+            <Link
+              href="/#contact"
               data-cursor-hover
               className="font-mono text-xs tracking-widest text-muted-foreground hover:text-white transition-colors duration-300"
             >
-              Email
-            </a>
+              Contact
+            </Link>
             <a
               href={profile.linkedin}
               target="_blank"
