@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 
-export function ContactForm() {
+export function ContactForm({ variant = "section" }: { variant?: "section" | "modal" }) {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
     const formRef = useRef<HTMLFormElement>(null)
@@ -83,14 +83,14 @@ export function ContactForm() {
     }
 
     return (
-        <section id="contact" className="relative py-24 md:py-32 overflow-hidden scroll-mt-20">
+        <section id={variant === "section" ? "contact" : undefined} className={variant === "modal" ? "relative max-h-[80vh] overflow-y-auto py-4 pr-1" : "relative py-24 md:py-32 overflow-hidden scroll-mt-20"}>
             <div
                 ref={containerRef}
                 className="container px-4 md:px-6 mx-auto max-w-2xl"
             >
                 <div className="mb-12 text-center">
                     <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">06 — CONTACT</p>
-                    <h2 className="font-sans text-3xl md:text-5xl font-light italic">Let&apos;s Collaborate</h2>
+                    <h2 id={variant === "modal" ? "contact-modal-title" : undefined} className="font-sans text-3xl md:text-5xl font-light italic">Let&apos;s Collaborate</h2>
                     <p className="mt-5 font-mono text-xs leading-6 text-muted-foreground">Use the form below to start a conversation.</p>
                 </div>
 

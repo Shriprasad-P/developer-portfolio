@@ -29,6 +29,11 @@ export function Navbar() {
 
   const handleNavigation = (href: string) => {
     setIsMenuOpen(false)
+    if (href === "#contact") {
+      window.dispatchEvent(new Event("portfolio:open-contact"))
+      return
+    }
+
     if (href.startsWith("#")) {
       if (pathname === "/") {
         const element = document.querySelector(href)

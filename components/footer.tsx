@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ArrowUpRight } from "lucide-react"
-import Link from "next/link"
 import { profile } from "@/lib/portfolio-data"
+import { openContactModal } from "@/components/contact-modal"
 
 export function Footer() {
   const [time, setTime] = useState("")
@@ -27,10 +27,11 @@ export function Footer() {
   return (
     <footer className="relative">
       {/* Main CTA */}
-      <motion.a
-        href="/#contact"
+      <motion.button
+        type="button"
+        onClick={openContactModal}
         data-cursor-hover
-        className="relative block overflow-hidden"
+        className="relative block w-full overflow-hidden border-0 bg-transparent p-0 text-left"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -66,7 +67,7 @@ export function Footer() {
             </motion.div>
           </div>
         </div>
-      </motion.a>
+      </motion.button>
 
       {/* Footer Info */}
       <div className="px-8 md:px-12 py-8 border-t border-white/10">
@@ -79,13 +80,14 @@ export function Footer() {
 
           {/* Links */}
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 md:gap-x-8">
-            <Link
-              href="/#contact"
+            <button
+              type="button"
+              onClick={openContactModal}
               data-cursor-hover
               className="font-mono text-xs tracking-widest text-muted-foreground hover:text-white transition-colors duration-300"
             >
               Contact
-            </Link>
+            </button>
             <a
               href={profile.linkedin}
               target="_blank"

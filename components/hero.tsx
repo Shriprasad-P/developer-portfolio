@@ -6,6 +6,7 @@ import dynamic from "next/dynamic"
 import gsap from "gsap"
 import { ArrowDownRight, Github, Linkedin, Mail } from "lucide-react"
 import { profile } from "@/lib/portfolio-data"
+import { openContactModal } from "@/components/contact-modal"
 
 const SentientSphere = dynamic(() => import("./sentient-sphere").then((module) => module.SentientSphere), {
   ssr: false,
@@ -77,13 +78,13 @@ export function Hero() {
           </p>
           <div className="mt-7 flex flex-wrap justify-end gap-3">
             <a href="#work" className="hero-action">View work <ArrowDownRight size={16} aria-hidden="true" /></a>
-            <a href="#contact" className="hero-action hero-action-secondary">Connect <ArrowDownRight size={16} aria-hidden="true" /></a>
+            <button type="button" onClick={openContactModal} className="hero-action hero-action-secondary">Connect <ArrowDownRight size={16} aria-hidden="true" /></button>
           </div>
           <div className="mt-5 flex justify-end gap-3">
             <a href={profile.github} target="_blank" rel="noreferrer" className="social-icon" aria-label="GitHub"><Github size={17} /></a>
             <a href={profile.linkedin} target="_blank" rel="noreferrer" className="social-icon" aria-label="LinkedIn"><Linkedin size={17} /></a>
             <a href={profile.huggingFace} target="_blank" rel="noreferrer" className="social-icon" aria-label="Hugging Face">HF</a>
-            <a href="#contact" className="social-icon" aria-label="Contact Shriprasad Patil"><Mail size={17} /></a>
+            <button type="button" onClick={openContactModal} className="social-icon" aria-label="Contact Shriprasad Patil"><Mail size={17} /></button>
           </div>
         </motion.div>
       </motion.div>

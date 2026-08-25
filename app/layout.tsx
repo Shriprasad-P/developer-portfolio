@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import { Playfair_Display, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { GSAPRegistry } from "@/components/gsap-registry"
+import { ContactModal } from "@/components/contact-modal"
 import { profile, projects } from "@/lib/portfolio-data"
 import "./globals.css"
 
@@ -34,7 +35,6 @@ export const metadata: Metadata = {
     description: "Agentic systems, research tools, AI products, and developer infrastructure.",
     images: ["/abstract-neural-network-visualization-dark-theme.jpg"],
   },
-  icons: { icon: "/icon.svg", apple: "/apple-icon.png" },
 }
 
 export const viewport: Viewport = {
@@ -63,6 +63,7 @@ export default function RootLayout({
         <div className="noise-overlay" />
         <GSAPRegistry />
         {children}
+        <ContactModal />
         <Analytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </body>
