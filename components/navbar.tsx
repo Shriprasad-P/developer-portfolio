@@ -81,9 +81,6 @@ export function Navbar() {
             ))}
           </ul>
 
-          {/* Status Indicator */}
-          <span className="hidden md:inline-flex font-mono text-xs tracking-wider text-white/45" title="A current resume PDF has not been added yet">RESUME / PENDING</span>
-
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -131,14 +128,6 @@ export function Navbar() {
                   {link.label}
                 </motion.button>
               ))}
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-                className="mt-8 font-mono text-xs tracking-wider text-muted-foreground underline underline-offset-4"
-              >
-                RESUME PDF PENDING
-              </motion.span>
             </nav>
           </motion.div>
         )}

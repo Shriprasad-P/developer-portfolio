@@ -104,7 +104,6 @@ export function Footer() {
               GitHub
             </a>
             <a href={profile.huggingFace} target="_blank" rel="noreferrer" className="font-mono text-xs tracking-widest text-muted-foreground hover:text-white transition-colors duration-300">Hugging Face</a>
-            <span className="font-mono text-xs tracking-widest text-muted-foreground/50" title="Resume PDF is not yet available">Resume PDF pending</span>
           </div>
 
           {/* Copyright */}

@@ -72,7 +72,6 @@ export function Hero() {
           </p>
           <div className="mt-7 flex flex-wrap justify-end gap-3">
             <a href="#work" className="hero-action">View work <ArrowDownRight size={16} aria-hidden="true" /></a>
-            <span className="hero-action hero-action-secondary cursor-not-allowed opacity-65" title="A current resume PDF has not been added yet">Resume PDF pending</span>
           </div>
           <div className="mt-5 flex justify-end gap-3">
             <a href={profile.github} target="_blank" rel="noreferrer" className="social-icon" aria-label="GitHub"><Github size={17} /></a>
