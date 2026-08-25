@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useRouter, usePathname } from "next/navigation"
-import Image from "next/image"
 
 const navLinks = [
   { label: "Work", href: "#work" },
@@ -61,10 +60,9 @@ export function Navbar() {
               e.preventDefault()
               window.scrollTo({ top: 0, behavior: "smooth" })
             }}
-            className="group flex items-center gap-3"
+            className="group flex items-center gap-2"
           >
-            <Image src="/shriprasad-logo.png" alt="Shriprasad Patil logo" width={32} height={32} priority className="h-8 w-8 rounded-lg" />
-            <span className="font-mono text-xs tracking-widest text-muted-foreground">SHRIPRASAD PATIL</span>
+            <span className="font-mono text-xs tracking-widest text-muted-foreground">PORTFOLIO</span>
             <span className="w-1.5 h-1.5 rounded-full bg-accent group-hover:scale-150 transition-transform duration-300" />
           </a>
 
