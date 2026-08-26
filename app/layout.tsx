@@ -35,6 +35,9 @@ export const metadata: Metadata = {
     description: "Agentic systems, research tools, AI products, and developer infrastructure.",
     images: ["/abstract-neural-network-visualization-dark-theme.jpg"],
   },
+  icons: {
+    icon: "/browser-tab-logo.png",
+  },
 }
 
 export const viewport: Viewport = {
