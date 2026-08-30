@@ -31,15 +31,18 @@ export async function POST(req: Request) {
             return NextResponse.json({ message: "Message received" }, { status: 200 })
         }
 
-        if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+        const gmailUser = process.env.GMAIL_USER
+        const gmailAppPassword = process.env.PORTFOLIO_GMAIL_APP_PASSWORD || process.env.GMAIL_APP_PASSWORD
+
+        if (!gmailUser || !gmailAppPassword) {
             return NextResponse.json({ error: "Contact service is temporarily unavailable." }, { status: 503 })
         }
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
-                user: process.env.GMAIL_USER,
-                pass: process.env.GMAIL_APP_PASSWORD,
+                user: gmailUser,
+                pass: gmailAppPassword,
             },
         })
 
@@ -48,8 +51,8 @@ export async function POST(req: Request) {
         const safeMessage = escapeHtml(message).replace(/\n/g, "<br />")
 
         const mailOptions = {
-            from: process.env.GMAIL_USER,
-            to: process.env.GMAIL_USER, // Sending to yourself
+            from: gmailUser,
+            to: gmailUser, // Sending to yourself
             subject: `Portfolio Contact: ${name}`,
             text: `
         Name: ${name}
