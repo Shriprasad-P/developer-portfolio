@@ -1,0 +1,1 @@
+# Activity note 22-17\n\nRoutine documentation hygiene keeps tooling guidance clear and easy to maintain.
