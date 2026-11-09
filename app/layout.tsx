@@ -1,37 +1,26 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Playfair_Display, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { GSAPRegistry } from "@/components/gsap-registry"
 import { ContactModal } from "@/components/contact-modal"
 import { profile, projects } from "@/lib/portfolio-data"
 import "./globals.css"
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-})
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
-})
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://shriprasadpatil.dev"),
-  title: "Shriprasad Patil — AI-Native Software Engineer",
-  description: "AI-native software engineer building agentic systems, research tools, full-stack AI products, and developer infrastructure. Explore projects, research, open-source work, and certifications.",
+  title: "Shriprasad Patil — AI/ML and backend engineer",
+  description: "Shriprasad Patil builds agentic systems, research tools, full stack AI products, and secure backend infrastructure.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "/",
-    title: "Shriprasad Patil — AI-Native Software Engineer",
-    description: "AI-native software engineer building agentic systems, research tools, full-stack AI products, and developer infrastructure.",
+    title: "Shriprasad Patil — AI/ML and backend engineer",
+    description: "Agentic systems, research tools, AI products, and developer infrastructure.",
     images: [{ url: "/abstract-neural-network-visualization-dark-theme.jpg", width: 1024, height: 1024, alt: "Abstract neural network visualization" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shriprasad Patil — AI-Native Software Engineer",
+    title: "Shriprasad Patil — AI/ML and backend engineer",
     description: "Agentic systems, research tools, AI products, and developer infrastructure.",
     images: ["/abstract-neural-network-visualization-dark-theme.jpg"],
   },
@@ -40,9 +29,7 @@ export const metadata: Metadata = {
   },
 }
 
-export const viewport: Viewport = {
-  themeColor: "#1a1a1a",
-}
+export const viewport: Viewport = { themeColor: "#181818" }
 
 export default function RootLayout({
   children,
@@ -61,9 +48,8 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="en" className={`${playfair.variable} ${geistMono.variable}`}>
+    <html lang="en">
       <body className="font-sans antialiased overflow-x-hidden">
-        <div className="noise-overlay" />
         <GSAPRegistry />
         {children}
         <ContactModal />
