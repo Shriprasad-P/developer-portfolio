@@ -218,6 +218,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .footer-meta a:hover { color: var(--foreground); }
 
 @media (max-width: 900px) {
+  .header-inner { align-items: flex-start; flex-direction: column; padding-block: .75rem; }
+  .primary-nav { width: 100%; gap: 1.25rem; padding-bottom: .1rem; }
   .hero, .lab-layout, .contribution-layout, .research-grid, .about-layout, .stack-layout, .footer-grid { grid-template-columns: 1fr; }
   .hero { min-height: auto; padding-top: 5rem; }
   .hero-panel { min-height: 0; }
@@ -232,8 +234,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
 @media (max-width: 640px) {
   .shell { width: min(100% - 2rem, 90rem); }
   .site-header { width: calc(100% - 1rem); }
-  .header-inner { align-items: flex-start; flex-direction: column; padding-block: .75rem; }
-  .primary-nav { width: 100%; gap: 1.25rem; padding-bottom: .1rem; }
   .hero h1 { max-width: 8ch; font-size: clamp(3.5rem, 17vw, 5rem); }
   .proof-strip { gap: 1rem; }
   .proof-strip div { min-width: calc(50% - .5rem); }
