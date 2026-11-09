@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { AnimatedLink } from "@/components/ui/skiper-ui/animated-link"
 import {
   activeContributions,
   aiLab,
@@ -51,10 +52,40 @@ function ContributionRow({ contribution }: { contribution: Contribution }) {
         <p className="row-meta">{contribution.pullRequest}</p>
         {contribution.title && <p className="row-description">{contribution.title}</p>}
       </div>
-      <a className="text-link" href={contribution.url} target="_blank" rel="noreferrer noopener">
-        View contribution <span aria-hidden="true">↗</span>
-      </a>
+      <AnimatedLink className="text-link" href={contribution.url} external arrow>View contribution</AnimatedLink>
     </article>
+  )
+}
+
+export function SiteHeader({ inner = false }: { inner?: boolean }) {
+  return (
+    <header className="site-header">
+      <div className="shell header-inner">
+        <a className="brand" href={inner ? "/" : "#top"} aria-label="Shriprasad Patil home">
+          <span className="brand-mark" aria-hidden="true">SP</span>
+          <span>Shriprasad Patil</span>
+        </a>
+        <nav className="primary-nav" aria-label="Primary navigation">
+          {navigation.map(([label, href], index) => (
+            <AnimatedLink key={href} href={inner && href.startsWith("#") ? `/${href}` : href}>
+              <span className="nav-index">0{index + 1}</span>{label}
+            </AnimatedLink>
+          ))}
+        </nav>
+      </div>
+    </header>
+  )
+}
+
+export function SiteFooter({ contactPage = false }: { contactPage?: boolean }) {
+  return (
+    <footer id="contact" className="site-footer">
+      <div className="shell footer-grid">
+        <div><p className="eyebrow"><span className="eyebrow-index">08</span>{contactPage ? "Explore the work" : "Next conversation"}</p><h2>{contactPage ? "See the systems behind the practice." : "Have a system worth making useful?"}</h2></div>
+        <div className="footer-actions"><a className="button button-primary" href={contactPage ? "/#work" : "/contact"}>{contactPage ? "Explore selected systems" : "Open the contact form"} <span aria-hidden="true">↗</span></a><AnimatedLink className="text-link" href={`mailto:${profile.email}`}>{profile.email}</AnimatedLink></div>
+      </div>
+      <div className="shell footer-meta"><span>© {new Date().getFullYear()} Shriprasad Patil</span><div><AnimatedLink href={profile.linkedin} external>LinkedIn</AnimatedLink><AnimatedLink href={profile.github} external>GitHub</AnimatedLink><AnimatedLink href={profile.huggingFace} external>Hugging Face</AnimatedLink><AnimatedLink href="https://skiper-ui.com/v1/skiper40" external>Link interactions by Skiper UI</AnimatedLink></div></div>
+    </footer>
   )
 }
 
@@ -63,21 +94,7 @@ export function PortfolioHome() {
     <>
       <a className="skip-link" href="#main-content">Skip to content</a>
 
-      <header className="site-header">
-        <div className="shell header-inner">
-          <a className="brand" href="#top" aria-label="Shriprasad Patil home">
-            <span className="brand-mark" aria-hidden="true">SP</span>
-            <span>Shriprasad Patil</span>
-          </a>
-          <nav className="primary-nav" aria-label="Primary navigation">
-            {navigation.map(([label, href], index) => (
-              <a key={href} href={href}>
-                <span className="nav-index">0{index + 1}</span>{label}
-              </a>
-            ))}
-          </nav>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main id="main-content">
         <section id="top" className="hero shell" aria-labelledby="hero-title">
@@ -143,7 +160,7 @@ export function PortfolioHome() {
                         {project.reliability && <div><h4>Reliability and security</h4><p>{project.reliability}</p></div>}
                       </div>
                     </details>
-                    <a className="text-link project-source" href={project.github} target="_blank" rel="noreferrer noopener">View source on GitHub <span aria-hidden="true">↗</span></a>
+                    <AnimatedLink className="text-link project-source" href={project.github} external arrow>View source on GitHub</AnimatedLink>
                   </div>
                 </article>
               ))}
@@ -163,7 +180,7 @@ export function PortfolioHome() {
               </ol>
               <div className="tag-list">{aiLab.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div>
               <p className="lab-note">Verified local tooling includes model warmup, image resizing and compression, and cached HTTP sessions. The Bonsai and MLX serving adapters remain experimental rather than production claims.</p>
-              <a className="text-link" href={aiLab.github} target="_blank" rel="noreferrer noopener">View source on GitHub <span aria-hidden="true">↗</span></a>
+              <AnimatedLink className="text-link" href={aiLab.github} external arrow>View source on GitHub</AnimatedLink>
             </article>
           </div>
         </section>
@@ -208,7 +225,7 @@ export function PortfolioHome() {
                   <h3>{credential.title}</h3>
                   <dl>{credential.issuedAt && <div><dt>Issued</dt><dd>{credential.issuedAt}</dd></div>}{credential.credentialId && <div><dt>Credential ID</dt><dd>{credential.credentialId}</dd></div>}{credential.recognition && <div><dt>Recognition</dt><dd>{credential.recognition}</dd></div>}</dl>
                   <div className="tag-list">{credential.skills.map((skill) => <span key={skill}>{skill}</span>)}</div>
-                  {credential.verificationUrl && <a className="text-link" href={credential.verificationUrl} target="_blank" rel="noreferrer noopener">View profile <span aria-hidden="true">↗</span></a>}
+                  {credential.verificationUrl && <AnimatedLink className="text-link" href={credential.verificationUrl} external arrow>View profile</AnimatedLink>}
                 </article>
               ))}
             </div>
@@ -224,13 +241,7 @@ export function PortfolioHome() {
         </section>
       </main>
 
-      <footer id="contact" className="site-footer">
-        <div className="shell footer-grid">
-          <div><p className="eyebrow"><span className="eyebrow-index">08</span>Next conversation</p><h2>Have a system worth making useful?</h2></div>
-          <div className="footer-actions"><a className="button button-primary" href="/contact">Open the contact form <span aria-hidden="true">↗</span></a><a className="text-link" href={`mailto:${profile.email}`}>{profile.email}</a></div>
-        </div>
-        <div className="shell footer-meta"><span>© {new Date().getFullYear()} Shriprasad Patil</span><div><a href={profile.linkedin} target="_blank" rel="noreferrer noopener">LinkedIn</a><a href={profile.github} target="_blank" rel="noreferrer noopener">GitHub</a><a href={profile.huggingFace} target="_blank" rel="noreferrer noopener">Hugging Face</a></div></div>
-      </footer>
+      <SiteFooter />
     </>
   )
 }

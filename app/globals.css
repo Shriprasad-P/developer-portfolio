@@ -82,6 +82,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .primary-nav a { white-space: nowrap; padding: .25rem 0; color: var(--muted); font: 500 .7rem/1 var(--font-geist-mono), monospace; letter-spacing: .03em; transition: color 300ms cubic-bezier(.22,1,.36,1); }
 .primary-nav a:hover { color: var(--foreground); }
 .nav-index, .eyebrow-index { margin-right: .45rem; color: var(--accent); }
+.skiper-link { position: relative; display: inline-flex; align-items: center; width: fit-content; }
+.skiper-link::after { position: absolute; right: 0; bottom: -.16em; left: 0; height: 1px; background: currentColor; content: ""; transform: scaleX(0); transform-origin: right; transition: transform 300ms cubic-bezier(.4,0,.2,1); }
+.skiper-link:hover::after, .skiper-link:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+.skiper-link-icon { width: .65em; height: .65em; margin-left: .4em; opacity: .72; transform: translate(-.15em,.15em); transition: opacity 300ms ease, transform 300ms ease; }
+.skiper-link:hover .skiper-link-icon, .skiper-link:focus-visible .skiper-link-icon { opacity: 1; transform: translate(0,0); }
 
 .hero { display: grid; grid-template-columns: minmax(0, 1.14fr) minmax(20rem, .86fr); gap: clamp(2rem, 6vw, 7rem); align-items: center; min-height: calc(100dvh - 6rem); padding-block: clamp(5rem, 10vw, 9rem) clamp(5rem, 9vw, 8rem); }
 .hero-copy { max-width: 48rem; }
@@ -217,10 +222,32 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .footer-meta div { display: flex; flex-wrap: wrap; gap: 1rem; }
 .footer-meta a:hover { color: var(--foreground); }
 
+.contact-main { padding-block: clamp(5rem, 10vw, 9rem); }
+.contact-intro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(16rem, .8fr); gap: 3rem; align-items: end; padding-bottom: clamp(3rem, 6vw, 6rem); border-bottom: 1px solid var(--border); }
+.contact-intro .eyebrow { grid-column: 1 / -1; margin-bottom: -1rem; }
+.contact-intro h1 { max-width: 12ch; margin: 0; font-size: clamp(3rem, 7vw, 7rem); font-weight: 500; letter-spacing: -.075em; line-height: .93; text-wrap: balance; }
+.contact-intro .accent-text { margin-left: .08em; }
+.contact-intro p:last-child { max-width: 28rem; margin: 0; color: var(--muted-bright); font-size: 1.05rem; line-height: 1.6; }
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(16rem, .8fr); gap: clamp(2rem, 7vw, 8rem); padding-top: clamp(3rem, 6vw, 6rem); }
+.contact-form { display: grid; gap: 1.5rem; }
+.contact-form-field { display: grid; gap: .65rem; }
+.contact-form label { color: var(--muted-bright); font: 600 .68rem/1.3 var(--font-geist-mono), monospace; letter-spacing: .1em; text-transform: uppercase; }
+.contact-form input:not([name="website"]), .contact-form textarea { width: 100%; min-height: 3.25rem; padding: .85rem 1rem; border: 1px solid var(--border-strong); border-radius: 0; outline: none; background: var(--surface); color: var(--foreground); font: 1rem/1.4 var(--font-geist), sans-serif; }
+.contact-form textarea { min-height: 11rem; resize: vertical; }
+.contact-form input::placeholder, .contact-form textarea::placeholder { color: var(--muted); }
+.contact-form input:focus-visible, .contact-form textarea:focus-visible { border-color: var(--accent); outline: 2px solid var(--accent); outline-offset: 2px; }
+.contact-form .button { justify-self: start; cursor: pointer; }
+.contact-form .button:disabled { cursor: wait; opacity: .6; }
+.form-status { min-height: 1.4em; margin: 0; color: var(--accent-strong); font: .83rem/1.5 var(--font-geist-mono), monospace; }
+.contact-aside { align-self: start; padding: clamp(1.5rem, 4vw, 3rem); border: 1px solid var(--border); background: var(--surface); }
+.contact-aside h2 { max-width: 14ch; margin: 0 0 2rem; font-size: clamp(1.7rem, 3vw, 3rem); font-weight: 500; letter-spacing: -.05em; line-height: 1; }
+.contact-aside p:not(.subsection-label) { margin: 1.5rem 0 0; color: var(--muted-bright); line-height: 1.6; }
+.contact-modal .contact-form { gap: 1rem; }
+
 @media (max-width: 900px) {
   .header-inner { align-items: flex-start; flex-direction: column; padding-block: .75rem; }
   .primary-nav { width: 100%; gap: 1.25rem; padding-bottom: .1rem; }
-  .hero, .lab-layout, .contribution-layout, .research-grid, .about-layout, .stack-layout, .footer-grid { grid-template-columns: 1fr; }
+  .hero, .lab-layout, .contribution-layout, .research-grid, .about-layout, .stack-layout, .footer-grid, .contact-intro, .contact-grid { grid-template-columns: 1fr; }
   .hero { min-height: auto; padding-top: 5rem; }
   .hero-panel { min-height: 0; }
   .section-heading { grid-template-columns: 1fr; gap: 1rem; }
