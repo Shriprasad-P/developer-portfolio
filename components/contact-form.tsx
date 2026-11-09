@@ -1,140 +1,64 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
-import gsap from "gsap"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
+import { useState, type FormEvent } from "react"
 
 export function ContactForm({ variant = "section" }: { variant?: "section" | "modal" }) {
-    const [isSubmitting, setIsSubmitting] = useState(false)
-    const containerRef = useRef<HTMLDivElement>(null)
-    const formRef = useRef<HTMLFormElement>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [status, setStatus] = useState("")
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.fromTo(containerRef.current,
-                { opacity: 0, y: 30 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: "top 80%",
-                        toggleActions: "play none none reverse"
-                    }
-                }
-            )
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setIsSubmitting(true)
+    setStatus("")
 
-            if (formRef.current) {
-                const elements = formRef.current.children
-                gsap.fromTo(elements,
-                    { opacity: 0, y: 20 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.6,
-                        stagger: 0.1,
-                        delay: 0.2,
-                        scrollTrigger: {
-                            trigger: formRef.current,
-                            start: "top 85%",
-                        }
-                    }
-                )
-            }
-        }, containerRef)
-        return () => ctx.revert()
-    }, [])
+    const form = event.currentTarget
+    const formData = new FormData(form)
+    const data = Object.fromEntries(["name", "email", "message", "website"].map((key) => [key, formData.get(key)]))
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        setIsSubmitting(true)
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
 
-        const formData = new FormData(e.target as HTMLFormElement)
-        const data = {
-            name: formData.get("name"),
-            email: formData.get("email"),
-            message: formData.get("message"),
-            website: formData.get("website"),
-        }
-
-        try {
-            const response = await fetch("/api/contact", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            })
-
-            if (response.ok) {
-                alert("Message sent successfully!")
-                    ; (e.target as HTMLFormElement).reset()
-            } else {
-                alert("Failed to send message. Please try again.")
-            }
-        } catch {
-            alert("An error occurred. Please try again.")
-        } finally {
-            setIsSubmitting(false)
-        }
+      if (response.ok) {
+        setStatus("Message sent. Thank you for getting in touch.")
+        form.reset()
+      } else {
+        const body = await response.json().catch(() => null)
+        setStatus(body?.error || "Your message could not be sent. Please email me directly.")
+      }
+    } catch {
+      setStatus("Your message could not be sent. Please email me directly.")
+    } finally {
+      setIsSubmitting(false)
     }
+  }
 
-    return (
-        <section id={variant === "section" ? "contact" : undefined} className={variant === "modal" ? "relative max-h-[80vh] overflow-y-auto py-4 pr-1" : "relative py-24 md:py-32 overflow-hidden scroll-mt-20"}>
-            <div
-                ref={containerRef}
-                className="container px-4 md:px-6 mx-auto max-w-2xl"
-            >
-                <div className="mb-12 text-center">
-                    <p className="font-mono text-xs tracking-[0.3em] text-muted-foreground mb-4">06 — CONTACT</p>
-                    <h2 id={variant === "modal" ? "contact-modal-title" : undefined} className="font-sans text-3xl md:text-5xl font-light italic">Let&apos;s Collaborate</h2>
-                    <p className="mt-5 font-mono text-xs leading-6 text-muted-foreground">Use the form below to start a conversation.</p>
-                </div>
-
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
-                    <div className="absolute left-[-10000px] h-px w-px overflow-hidden" aria-hidden="true">
-                        <label htmlFor="website">Website</label>
-                        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
-                    </div>
-                    <div className="space-y-2">
-                        <label htmlFor="name" className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
-                            Name
-                        </label>
-                        <Input id="name" name="name" required placeholder="Your Name" className="bg-white/5 border-white/10 text-white placeholder:text-white/30" />
-                    </div>
-
-                    <div className="space-y-2">
-                        <label htmlFor="email" className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
-                            Email
-                        </label>
-                        <Input id="email" name="email" type="email" required placeholder="your@email.com" className="bg-white/5 border-white/10 text-white placeholder:text-white/30" />
-                    </div>
-
-                    <div className="space-y-2">
-                        <label htmlFor="message" className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
-                            Message
-                        </label>
-                        <Textarea
-                            id="message"
-                            name="message"
-                            required
-                            placeholder="Tell me about your project..."
-                            className="min-h-[150px] bg-white/5 border-white/10 text-white placeholder:text-white/30"
-                        />
-                    </div>
-
-                    <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full h-12 font-mono text-xs tracking-widest uppercase bg-white text-black hover:bg-white/90"
-                    >
-                        {isSubmitting ? "Sending..." : "Send Message"}
-                    </Button>
-                </form>
-            </div>
-        </section>
-    )
+  return (
+    <div className={variant === "modal" ? "contact-modal max-h-[80vh] overflow-y-auto pr-2" : ""}>
+      {variant === "modal" && <h2 id="contact-modal-title" className="mb-6 text-3xl font-medium tracking-tight">Start a conversation.</h2>}
+      <form className="contact-form" onSubmit={handleSubmit}>
+        <div className="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true">
+          <label htmlFor={`website-${variant}`}>Website</label>
+          <input id={`website-${variant}`} name="website" type="text" tabIndex={-1} autoComplete="off" />
+        </div>
+        <div className="contact-form-field">
+          <label htmlFor={`name-${variant}`}>Name</label>
+          <input id={`name-${variant}`} name="name" required minLength={2} maxLength={80} autoComplete="name" placeholder="Your name" />
+        </div>
+        <div className="contact-form-field">
+          <label htmlFor={`email-${variant}`}>Email</label>
+          <input id={`email-${variant}`} name="email" type="email" required maxLength={254} autoComplete="email" placeholder="you@example.com" />
+        </div>
+        <div className="contact-form-field">
+          <label htmlFor={`message-${variant}`}>Message</label>
+          <textarea id={`message-${variant}`} name="message" required minLength={10} maxLength={4000} placeholder="Tell me what you are building..." />
+        </div>
+        <button className="button button-primary" type="submit" disabled={isSubmitting}>{isSubmitting ? "Sending…" : "Send message"}<span aria-hidden="true">↗</span></button>
+        <p className="form-status" role="status" aria-live="polite">{status}</p>
+      </form>
+    </div>
+  )
 }
